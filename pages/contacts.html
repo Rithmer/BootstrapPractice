@@ -412,6 +412,9 @@
       .d-flex.me-2 {
         margin-right: var(--space-2) !important;
       }
+      .leaflet-control-attribution {
+        display: none;
+      }
 
       /* Медиа-запросы из original styles.css для адаптивности */
       @media (max-width: 1024px) {
@@ -598,9 +601,13 @@
           </div>
           <div class="contacts__details">
             <h2 class="contacts__title">Свяжись со мной 💬</h2>
-            <p class="contacts__text">📧 <strong>Email:</strong> halfevenw@gmail.com</p>
+            <p class="contacts__text">
+              📧 <strong>Email:</strong> halfevenw@gmail.com
+            </p>
             <p class="contacts__text">📍 <strong>Адрес:</strong> г. Москва</p>
-            <button class="project-detail__card-link" id="openDialog">Связаться</button>
+            <button class="project-detail__card-link" id="openDialog">
+              Связаться
+            </button>
           </div>
         </div>
         <div class="contacts__map col-md-6" id="map"></div>
