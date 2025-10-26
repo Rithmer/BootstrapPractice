@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Портфолио | Илья Константинов</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <style>
+      /* Все релевантные стили + медиа-запросы */
+      :root {
+        --color-bg: #f4f6ff;
+        --color-bg-light: #ffffff;
+        --color-fg: #0a0d4b;
+        --color-muted: #6b6c74;
+        --color-primary: #282c34;
+        --color-secondary: #4b515f;
+        --color-accent: #282c34;
+
+        --color-gradient-primary: linear-gradient(
+          135deg,
+          #e3e7ff 0%,
+          #f6f7ff 100%
+        );
+        --color-gradient-secondary: linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #f1f3ff 100%
+        );
+        --color-gradient-skill: linear-gradient(
+          135deg,
+          #4d54fbce 0%,
+          #8489fb 100%
+        );
+
+        --space-1: 10px;
+        --space-2: 15px;
+        --space-3: 20px;
+        --space-4: 25px;
+        --space-5: 30px;
+        --space-6: 40px;
+        --space-7: 50px;
+
+        --radius-3: 12px;
+        --radius-4: 15px;
+        --radius-5: 25px;
+
+        --shadow-1: 0 4px 10px rgba(0, 0, 0, 0.05);
+        --shadow-2: 0 5px 20px rgba(0, 0, 0, 0.08);
+        --shadow-3: 0 8px 25px rgba(70, 90, 255, 0.25);
+        --shadow-hover: 0 6px 25px rgba(70, 90, 255, 0.35);
+      }
+
+      body.theme-dark {
+        --color-bg: #1e1f24;
+        --color-bg-light: #2b2d36;
+        --color-fg: #f4f4f6;
+        --color-muted: #9ca1b5;
+        --color-primary: #8fa4ff;
+        --color-secondary: #b3b8c7;
+        --color-accent: #64a6fc;
+
+        --color-gradient-primary: linear-gradient(
+          135deg,
+          #2a2e39 0%,
+          #1a1d25 100%
+        );
+        --color-gradient-secondary: linear-gradient(
+          135deg,
+          #252733 0%,
+          #2c303d 100%
+        );
+        --color-gradient-skill: linear-gradient(
+          135deg,
+          #4fa3ff 0%,
+          #72e0ff 100%
+        );
+        background: rgb(40, 44, 52);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-weight: 900;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--color-bg);
+        color: var(--color-fg);
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        overflow-x: hidden;
+        transition: background 0.6s ease, color 0.4s ease;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(25px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.15);
+          opacity: 0.8;
+        }
+      }
+
+      @keyframes fadeOut {
+        to {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+
+      @keyframes colorShift {
+        0% {
+          color: #64a6fc;
+          outline-color: #64a6fc;
+          box-shadow: 0 0 15px #64a6fc;
+        }
+        16.66% {
+          color: #2fd0c8;
+          outline-color: #2fd0c8;
+          box-shadow: 0 0 15px #2fd0c8;
+        }
+        33.33% {
+          color: #6ed485;
+          outline-color: #6ed485;
+          box-shadow: 0 0 15px #6ed485;
+        }
+        50% {
+          color: #fb9674;
+          outline-color: #fb9674;
+          box-shadow: 0 0 15px #fb9674;
+        }
+        66.66% {
+          color: #f8c24f;
+          outline-color: #f8c24f;
+          box-shadow: 0 0 15px #f8c24f;
+        }
+        83.33% {
+          color: #a189f0;
+          outline-color: #a189f0;
+          box-shadow: 0 0 15px #a189f0;
+        }
+        100% {
+          color: #64a6fc;
+          outline-color: #64a6fc;
+          box-shadow: 0 0 15px #64a6fc;
+        }
+      }
+
+      .side-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-4);
+        background: var(--color-bg);
+        box-shadow: var(--shadow-1);
+        z-index: 1000;
+        transition: background 0.5s ease;
+      }
+
+      .side-nav__link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        transition: background 0.3s ease, transform 0.3s ease;
+      }
+
+      .side-nav__link:hover {
+        background: var(--color-gradient-secondary);
+        transform: scale(1.1);
+      }
+
+      .side-nav__link.active {
+        background: var(--color-gradient-skill);
+      }
+
+      .side-nav__link svg {
+        width: 28px;
+        height: 28px;
+        fill: var(--color-muted);
+        transition: fill 0.3s ease;
+      }
+
+      .side-nav__link:hover svg {
+        fill: var(--color-primary);
+      }
+
+      .side-nav__link.active svg {
+        fill: white;
+      }
+
+      .portfolio-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 900px;
+        margin: var(--space-6) auto;
+        padding: 0 var(--space-3);
+        gap: var(--space-3);
+        text-align: center;
+      }
+
+      .portfolio-header__title {
+        font-size: 36px;
+        color: var(--color-primary);
+      }
+
+      .portfolio-content {
+        flex: 1;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 var(--space-3);
+      }
+
+      .portfolio-content__project-detail {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 колонки на ПК */
+        gap: var(--space-4);
+        justify-content: center; /* Центрирование карточек */
+      }
+
+      .project-detail__card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: var(--color-bg);
+        padding: var(--space-4);
+        border-radius: var(--radius-3);
+        box-shadow: var(--shadow-2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        opacity: 0;
+        animation: fadeUp 0.8s ease forwards;
+      }
+
+      .project-detail__card:nth-child(1) {
+        animation-delay: 0.3s;
+      }
+
+      .project-detail__card:nth-child(2) {
+        animation-delay: 0.6s;
+      }
+
+      .project-detail__card:nth-child(3) {
+        animation-delay: 0.9s;
+      }
+
+      .project-detail__card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .project-detail__card-title {
+        color: var(--color-primary);
+        margin-bottom: var(--space-2);
+      }
+
+      .project-detail__card-text {
+        color: var(--color-secondary);
+        margin-bottom: var(--space-3);
+        line-height: 1.6;
+      }
+
+      .project-detail__card-link {
+        text-decoration: none;
+        color: white;
+        font-weight: 600;
+        padding: var(--space-2) var(--space-4);
+        border-radius: var(--radius-4);
+        background: var(--color-gradient-skill);
+        box-shadow: var(--shadow-2);
+        transition: transform 0.3s ease;
+        display: inline-block;
+      }
+
+      .project-detail__card-link:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .footer {
+        text-align: center;
+        padding: var(--space-4);
+        color: var(--color-muted);
+        font-size: 14px;
+        background: var(--color-bg);
+        box-shadow: var(--shadow-1);
+        transition: background 0.5s ease, color 0.4s ease;
+      }
+
+      .theme-toggle {
+        position: fixed;
+        bottom: var(--space-3);
+        right: var(--space-3);
+        background: var(--color-bg-light);
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: var(--shadow-2);
+        transition: background 0.3s ease, transform 0.3s ease;
+      }
+
+      .theme-toggle:hover {
+        transform: scale(1.1);
+      }
+
+      .theme-toggle__icon {
+        width: 28px;
+        height: 28px;
+        transition: transform 0.3s ease;
+      }
+
+      /* Override Bootstrap */
+      .card.project-detail__card {
+        border: none;
+        background: var(--color-bg);
+        padding: var(--space-4);
+        box-shadow: var(--shadow-2);
+      }
+
+      .card-body {
+        padding: 0; /* Remove Bootstrap padding to match original */
+      }
+
+      .btn.project-detail__card-link {
+        padding: var(--space-2) var(--space-4);
+        background: var(--color-gradient-skill);
+        box-shadow: var(--shadow-2);
+        border: none;
+      }
+
+      /* Медиа-запросы */
+      @media (max-width: 1024px) {
+        .portfolio-header {
+          flex-direction: column;
+          gap: var(--space-3);
+          text-align: center;
+        }
+        .portfolio-header__title {
+          font-size: 28px;
+        }
+        .portfolio-content__project-detail {
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        .project-detail__card {
+          padding: var(--space-3);
+        }
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding-bottom: 60px;
+        }
+
+        .portfolio-header__title {
+          font-size: 26px;
+        }
+        .portfolio-content__project-detail {
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: var(--space-3);
+        }
+        .project-detail__card {
+          padding: var(--space-3);
+        }
+        .project-detail__card-title {
+          font-size: 20px;
+        }
+        .project-detail__card-text {
+          font-size: 15px;
+        }
+
+        .side-nav {
+          position: fixed;
+          top: auto;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 60px;
+          flex-direction: row;
+          justify-content: space-around;
+          align-items: center;
+          gap: 0;
+          box-shadow: var(--shadow-2);
+          z-index: 1000;
+        }
+
+        .theme-toggle {
+          bottom: 70px;
+          right: var(--space-2);
+          width: 45px;
+          height: 45px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .portfolio-header__title {
+          font-size: 24px;
+        }
+        .portfolio-content__project-detail {
+          grid-template-columns: 1fr; /* Одна колонка на мобильных */
+          gap: var(--space-3);
+        }
+        .project-detail__card {
+          padding: var(--space-2);
+        }
+        .project-detail__card-title {
+          font-size: 18px;
+        }
+        .project-detail__card-text {
+          font-size: 14px;
+        }
+        .project-detail__card-link {
+          padding: var(--space-1) var(--space-3);
+          font-size: 14px;
+        }
+      }
+    </style>
+    <script src="../scripts/main.js" defer></script>
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header class="portfolio-header">
+      <nav class="side-nav">
+        <a href="../index.html" class="side-nav__link" title="Главная">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z"
+            />
+          </svg>
+        </a>
+        <a
+          href="../pages/portfolio.html"
+          class="side-nav__link active"
+          title="Портфолио"
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M13 14v6c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1h-6c-.55 0-1 .45-1 1m-9 7h6c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1M3 4v6c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1m12.95-1.6L11.7 6.64c-.39.39-.39 1.02 0 1.41l4.25 4.25c.39.39 1.02.39 1.41 0l4.25-4.25c.39-.39.39-1.02 0-1.41L17.37 2.4c-.39-.39-1.03-.39-1.42 0z"
+            />
+          </svg>
+        </a>
+        <a href="../pages/skills.html" class="side-nav__link" title="Навыки">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12.09 2.91C10.08.9 7.07.49 4.65 1.67L8.28 5.3c.39.39.39 1.02 0 1.41L6.69 8.3c-.39.4-1.02.4-1.41 0L1.65 4.67C.48 7.1.89 10.09 2.9 12.1c1.86 1.86 4.58 2.35 6.89 1.48l7.96 7.96c1.03 1.03 2.69 1.03 3.71 0 1.03-1.03 1.03-2.69 0-3.71L13.54 9.9c.92-2.34.44-5.1-1.45-6.99z"
+            />
+          </svg>
+        </a>
+        <a
+          href="../pages/contacts.html"
+          class="side-nav__link"
+          title="Контакты"
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m-.4 4.25-6.54 4.09c-.65.41-1.47.41-2.12 0L4.4 8.25c-.25-.16-.4-.43-.4-.72 0-.67.73-1.07 1.3-.72L12 11l6.7-4.19c.57-.35 1.3.05 1.3.72 0 .29-.15.56-.4.72z"
+            />
+          </svg>
+        </a>
+      </nav>
+      <h1 class="portfolio-header__title">Мои проекты</h1>
+    </header>
+
+    <main class="portfolio-content container">
+      <section class="portfolio-content__project-detail">
+        <div class="project-detail__card">
+          <h2 class="project-detail__card-title">Портфолио</h2>
+          <p class="project-detail__card-text">
+            Мой основной сайт, демонстрирующий навыки веб-разработки и дизайн.
+          </p>
+          <a href="#" target="_blank" class="project-detail__card-link"
+            >Посмотреть проект</a
+          >
+        </div>
+        <div class="project-detail__card">
+          <h2 class="project-detail__card-title">Калькулятор на JS</h2>
+          <p class="project-detail__card-text">
+            Интерактивный калькулятор с красивым UI и простой логикой на
+            JavaScript.
+          </p>
+          <a href="#" target="_blank" class="project-detail__card-link"
+            >Посмотреть проект</a
+          >
+        </div>
+        <div class="project-detail__card">
+          <h2 class="project-detail__card-title">Пет-проект на Bootstrap</h2>
+          <p class="project-detail__card-text">
+            Сайт, созданный в рамках практической работы во время обучения в
+            вузе.
+          </p>
+          <a
+            href="https://github.com/Rithmer/BootstrapPractice"
+            target="_blank"
+            class="project-detail__card-link"
+          >
+            Посмотреть проект
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">© 2025 Илья Константинов | Сделано с ❤️</footer>
+
+    <button class="theme-toggle" id="theme-toggle">
+      <img
+        src="../images/theme-switch.svg"
+        alt="Сменить тему"
+        class="theme-toggle__icon"
+      />
+    </button>
+  </body>
+</html>

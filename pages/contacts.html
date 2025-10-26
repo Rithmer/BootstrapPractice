@@ -3,39 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Контакты</title>
+    <title>Контакты | Илья Константинов</title>
+    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     />
     <style>
+      /* Все релевантные стили + медиа-запросы из styles.css */
       :root {
-        --color-bg: #fff;
-        --color-bg-light: #f9f9f9;
-        --color-text: #fff;
-        --color-fg: #0b0b0b;
-        --color-fg-lighter: #ede5e5bb;
-        --color-primary: #667eea;
-        --color-secondary: #2c3e50;
-        --color-accent: #3498db;
-        --color-price: #eb7927;
-        --color-required: #eb2727;
-        --color-muted: #7f8c8d;
+        --color-bg: #f4f6ff;
+        --color-bg-light: #ffffff;
+        --color-fg: #0a0d4b;
+        --color-muted: #6b6c74;
+        --color-primary: #282c34;
+        --color-secondary: #4b515f;
+        --color-accent: #282c34;
+
         --color-gradient-primary: linear-gradient(
           135deg,
-          #667eea 0%,
-          #764ba2 100%
+          #e3e7ff 0%,
+          #f6f7ff 100%
         );
         --color-gradient-secondary: linear-gradient(
           135deg,
-          #2c3e50 0%,
-          #34495e 100%
+          #ffffff 0%,
+          #f1f3ff 100%
         );
         --color-gradient-skill: linear-gradient(
           135deg,
-          #4facfe 0%,
-          #00f2fe 100%
+          #4d54fbce 0%,
+          #8489fb 100%
         );
+
         --space-1: 10px;
         --space-2: 15px;
         --space-3: 20px;
@@ -43,49 +49,34 @@
         --space-5: 30px;
         --space-6: 40px;
         --space-7: 50px;
-        --radius-1: 8px;
-        --radius-2: 10px;
+
         --radius-3: 12px;
         --radius-4: 15px;
         --radius-5: 25px;
-        --shadow-1: 0 4px 10px rgba(0, 0, 0, 0.1);
-        --shadow-2: 0 5px 20px rgba(0, 0, 0, 0.08);
-        --shadow-3: 0 8px 25px rgba(102, 126, 234, 0.3);
-        --shadow-4: 0 4px 15px rgba(79, 172, 254, 0.3);
-        --shadow-hover: 0 6px 20px rgba(79, 172, 254, 0.4);
-      }
 
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        background: var(--color-bg);
-        color: var(--color-fg);
-        display: flex;
-        flex-direction: column;
+        --shadow-1: 0 4px 10px rgba(0, 0, 0, 0.05);
+        --shadow-2: 0 5px 20px rgba(0, 0, 0, 0.08);
+        --shadow-3: 0 8px 25px rgba(70, 90, 255, 0.25);
+        --shadow-hover: 0 6px 25px rgba(70, 90, 255, 0.35);
       }
 
       body.theme-dark {
-        --color-bg: #1c1f26;
-        --color-bg-light: #252932;
-        --color-text: #fff;
-        --color-fg: #f0f0f0;
-        --color-fg-lighter: #2e323d;
-        --color-primary: #6d8cff;
+        --color-bg: #1e1f24;
+        --color-bg-light: #2b2d36;
+        --color-fg: #f4f4f6;
+        --color-muted: #9ca1b5;
+        --color-primary: #8fa4ff;
         --color-secondary: #b3b8c7;
-        --color-accent: #8fd3ff;
-        --color-price: #ffb870;
-        --color-required: #ff6666;
-        --color-muted: #9a9fab;
+        --color-accent: #64a6fc;
+
         --color-gradient-primary: linear-gradient(
           135deg,
-          #5f6eff 0%,
-          #8c63ff 100%
+          #2a2e39 0%,
+          #1a1d25 100%
         );
         --color-gradient-secondary: linear-gradient(
           135deg,
-          #232733 0%,
+          #252733 0%,
           #2c303d 100%
         );
         --color-gradient-skill: linear-gradient(
@@ -93,465 +84,590 @@
           #4fa3ff 0%,
           #72e0ff 100%
         );
-        --shadow-1: 0 4px 10px rgba(255, 255, 255, 0.05);
-        --shadow-2: 0 5px 15px rgba(255, 255, 255, 0.07);
-        --shadow-3: 0 8px 25px rgba(120, 140, 255, 0.25);
-        --shadow-4: 0 4px 20px rgba(140, 190, 255, 0.35);
-        --shadow-hover: 0 6px 25px rgba(150, 210, 255, 0.45);
+        background: rgb(40, 44, 52);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-weight: 900;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         background: var(--color-bg);
         color: var(--color-fg);
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        overflow-x: hidden;
+        transition: background 0.6s ease, color 0.4s ease;
       }
 
-      /* HEADER */
-      .header {
-        background: var(--color-gradient-secondary);
-        color: var(--color-bg);
-        padding: var(--space-5);
-        text-align: center;
-        position: relative;
-      }
-      .header__title {
-        color: var(--color-text);
-        font-size: 28px;
-        font-weight: 300;
-        letter-spacing: 2px;
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(25px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
-      /* THEME TOGGLE */
-      .theme-toggle {
-        position: absolute;
-        top: var(--space-1);
-        right: var(--space-1);
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        color: var(--color-bg);
-        transition: all 0.3s ease;
-      }
-      .theme-toggle:hover {
-        transform: scale(1.05);
-        filter: brightness(1.2);
-      }
-      body.theme-dark .theme-toggle {
-        color: var(--color-fg);
-      }
-      body.theme-dark .theme-toggle:hover {
-        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
-      }
-
-      /* NAVIGATION */
-      .navbar {
-        background: var(--color-fg);
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-      }
-      .navbar-nav {
-        width: 100%;
-        justify-content: center;
-      }
-      .nav-link {
-        border-radius: var(--radius-5);
-        transition: all 0.3s ease;
-        color: var(--color-text);
-      }
-      .nav-link.active {
-        background: rgba(255, 255, 255, 0.2);
-        font-weight: 700;
-      }
-      .nav-link:hover {
-        transform: translateY(-2px);
-        background: rgba(255, 255, 255, 0.1);
-      }
-
-      /* MAIN */
-      .main {
+      .portfolio-content {
         flex: 1;
-        padding: var(--space-6);
         max-width: 900px;
         margin: 0 auto;
+        padding: 0 var(--space-3);
       }
 
-      /* CONTACTS */
-      .contacts__block {
-        background: var(--color-bg-light);
-        padding: var(--space-4);
-        border-radius: var(--radius-4);
-        box-shadow: var(--shadow-1);
-        text-align: left;
-        max-width: 600px;
-        margin: 0 auto;
-        margin-bottom: 20px;
-      }
-      body.theme-dark .contacts__block {
-        background: #262a35;
-        border-left: 3px solid var(--color-primary);
-        box-shadow: var(--shadow-4);
-        border-radius: var(--radius-3);
+      .contacts__container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-4);
+        min-height: 500px;
+        align-items: stretch;
+        width: 100%;
+        animation: fadeUp 1s ease forwards;
+        opacity: 0;
+        animation-delay: 0.5s;
       }
 
-      .contacts__button {
-        background: var(--color-gradient-primary);
-        color: var(--color-bg);
-        border: none;
-        padding: var(--space-1) var(--space-5);
+      .contacts__info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: var(--space-5);
+        background: none;
+        box-shadow: none;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+      }
+
+      .contacts__title-section {
+        margin-bottom: var(--space-3);
+      }
+
+      .contacts__title {
+        color: var(--color-primary);
+        font-size: 24px;
+        margin-bottom: var(--space-3);
+      }
+
+      .contacts__text {
+        color: var(--color-secondary);
+        font-size: 18px;
+        margin-bottom: var(--space-2);
+      }
+
+      .contacts__details {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2);
+      }
+
+      .contacts__map {
+        height: 100%;
+        width: 100%;
+        margin-top: var(--space-3);
         border-radius: var(--radius-5);
-        font-size: 16px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: transform 0.4s ease, box-shadow 0.3s ease;
-      }
-      .contacts__button:hover {
-        transform: scale(1.05);
-        box-shadow: var(--shadow-3);
       }
 
-      /* MODAL */
-      .modal-content {
-        background: var(--color-bg);
+      #map {
+        height: 100%;
+        width: 100%;
+        border-radius: var(--radius-5);
+        box-shadow: var(--shadow-2);
       }
-      .modal-header {
-        background: var(--color-gradient-secondary);
-        color: var(--color-bg);
-      }
-      body.theme-dark .modal-content {
+
+      dialog {
         background: var(--color-bg-light);
-        color: var(--color-fg);
+        border: none;
+        border-radius: var(--radius-4);
         box-shadow: var(--shadow-3);
+        padding: var(--space-4);
+        max-width: 500px;
+        width: 100%;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.3s ease;
       }
-      body.theme-dark .modal-header {
-        background: var(--color-gradient-secondary);
-        color: var(--color-fg);
+
+      dialog::backdrop {
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(3px);
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-3);
+      }
+
+      .modal-header h2 {
+        color: var(--color-primary);
+        font-size: 24px;
+      }
+
+      .modal-content form {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
       }
 
       .form-group label {
-        display: block;
+        color: var(--color-secondary);
         margin-bottom: var(--space-1);
         font-weight: 600;
-        color: var(--color-secondary);
       }
 
       .form-group input,
-      .form-group select,
       .form-group textarea {
-        width: 100%;
+        background: var(--color-bg);
+        border: 1px solid var(--color-muted);
+        border-radius: var(--radius-3);
         padding: var(--space-2);
-        border: 2px solid var(--color-bg-light);
-        border-radius: var(--radius-2);
-        font-size: 16px;
-        transition: border-color 0.3s ease;
-        box-sizing: border-box;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--color-fg);
+        transition: border 0.3s ease, box-shadow 0.3s ease;
       }
 
       .form-group input:focus,
-      .form-group select:focus,
       .form-group textarea:focus {
+        border-color: var(--color-accent);
+        box-shadow: var(--shadow-3);
         outline: none;
-        border-color: var(--color-primary);
-        box-shadow: var(--shadow-4);
       }
 
-      .form-group input.invalid,
-      .form-group select.invalid,
-      .form-group textarea.invalid {
-        border-color: var(--color-required);
+      .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: var(--space-2);
       }
 
-      .form-group input.invalid:focus,
-      .form-group select.invalid:focus,
-      .form-group textarea.invalid:focus {
-        border-color: var(--color-required);
-        box-shadow: 0 0 5px var(--color-required);
-      }
-
-      .form-group textarea {
-        min-height: 120px;
-        resize: vertical;
-      }
-
-      .form-group small {
-        display: block;
-        margin-top: var(--space-1);
-        color: var(--color-muted);
-        font-size: 14px;
-      }
-
-      .btn {
+      .modal-actions button {
         padding: var(--space-2) var(--space-4);
-        border: none;
-        border-radius: var(--radius-2);
+        border-radius: var(--radius-4);
+        font-weight: 600;
         cursor: pointer;
-        font-size: 16px;
-        transition: all 0.3s ease;
-        font-weight: 500;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        transition: background 0.3s ease, transform 0.3s ease;
       }
 
-      .btn-primary {
-        background: var(--color-gradient-primary);
-        color: var(--color-bg);
+      .modal-actions button[type="submit"] {
+        background: var(--color-gradient-skill);
+        color: white;
+        border: none;
       }
 
-      .btn-primary:hover {
+      .modal-actions button[type="submit"]:hover {
         transform: translateY(-2px);
         box-shadow: var(--shadow-hover);
       }
 
-      .btn-secondary {
-        background: var(--color-bg-light);
-        color: var(--color-secondary);
-        border: 2px solid var(--color-bg-light);
+      .modal-actions button[type="button"] {
+        background: transparent;
+        color: var(--color-muted);
+        border: 1px solid var(--color-muted);
       }
 
-      .btn-secondary:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-1);
-      }
-
-      .required {
-        color: var(--color-required);
-      }
-
-      /* FOOTER */
-      .footer {
+      .modal-actions button[type="button"]:hover {
         background: var(--color-gradient-secondary);
-        color: var(--color-text);
-        text-align: center;
-        padding: var(--space-5);
-        margin-top: var(--space-7);
       }
 
-      /* ADAPTIVE */
-      @media (max-width: 768px) {
-        .main {
+      .footer {
+        text-align: center;
+        padding: var(--space-4);
+        color: var(--color-muted);
+        font-size: 14px;
+        background: var(--color-bg);
+        box-shadow: var(--shadow-1);
+        transition: background 0.5s ease, color 0.4s ease;
+      }
+
+      .theme-toggle {
+        position: fixed;
+        bottom: var(--space-3);
+        right: var(--space-3);
+        background: var(--color-bg-light);
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: var(--shadow-2);
+        transition: background 0.3s ease, transform 0.3s ease;
+      }
+
+      .theme-toggle:hover {
+        transform: scale(1.1);
+      }
+
+      .theme-toggle__icon {
+        width: 28px;
+        height: 28px;
+        transition: transform 0.3s ease;
+      }
+
+      .side-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-4);
+        background: var(--color-bg);
+        box-shadow: var(--shadow-1);
+        z-index: 1000;
+        transition: background 0.5s ease;
+      }
+
+      .side-nav__link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        transition: background 0.3s ease, transform 0.3s ease;
+      }
+
+      .side-nav__link:hover {
+        background: var(--color-gradient-secondary);
+        transform: scale(1.1);
+      }
+
+      .side-nav__link.active {
+        background: var(--color-gradient-skill);
+      }
+
+      .side-nav__link svg {
+        width: 28px;
+        height: 28px;
+        fill: var(--color-muted);
+        transition: fill 0.3s ease;
+      }
+
+      .side-nav__link:hover svg {
+        fill: var(--color-primary);
+      }
+
+      .side-nav__link.active svg {
+        fill: white;
+      }
+
+      .project-detail__card-link {
+        text-decoration: none;
+        color: white;
+        font-weight: 600;
+        padding: var(--space-2) var(--space-4);
+        border-radius: var(--radius-4);
+        background: var(--color-gradient-skill);
+        box-shadow: var(--shadow-2);
+        transition: transform 0.3s ease;
+        display: inline-block;
+        width: 100%;
+      }
+
+      .project-detail__card-link:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .portfolio-header__title {
+        font-size: 36px;
+        color: var(--color-primary);
+      }
+
+      /* Override Bootstrap for 1:1 match */
+      .btn.project-detail__card-link {
+        padding: var(--space-2) var(--space-4);
+        background: var(--color-gradient-skill);
+        box-shadow: var(--shadow-2);
+        border: none;
+      }
+
+      .modal-actions .btn {
+        border: none; /* Remove Bootstrap border */
+      }
+
+      .d-flex.me-2 {
+        margin-right: var(--space-2) !important;
+      }
+
+      /* Медиа-запросы из original styles.css для адаптивности */
+      @media (max-width: 1024px) {
+        .contacts__container {
+          grid-template-columns: 1fr;
+          min-height: auto;
+        }
+        .contacts__info {
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+        }
+        .contacts__details {
+          align-items: center;
+        }
+        .contacts__map {
+          height: 400px;
+        }
+        #map {
+          height: 400px;
+        }
+
+        dialog {
+          max-width: 400px;
           padding: var(--space-3);
         }
-        .contacts__block {
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding-bottom: 60px;
+        }
+        .contacts__title {
+          font-size: 22px;
+        }
+        .contacts__text {
+          font-size: 16px;
+        }
+        .contacts__map {
+          height: 300px;
+          margin-top: var(--space-2);
+        }
+        #map {
+          height: 300px;
+        }
+        .side-nav {
+          position: fixed;
+          top: auto;
+          bottom: 0;
+          left: 0;
           width: 100%;
+          height: 60px;
+          flex-direction: row;
+          justify-content: space-around;
+          align-items: center;
+          gap: 0;
+          box-shadow: var(--shadow-2);
+          z-index: 1000;
+        }
+
+        .theme-toggle {
+          bottom: 70px;
+          right: var(--space-2);
+          width: 45px;
+          height: 45px;
+        }
+
+        dialog {
+          max-width: 350px;
+          padding: var(--space-3);
+        }
+        .modal-header h2 {
+          font-size: 22px;
+        }
+        .form-group label {
+          font-size: 15px;
+        }
+        .form-group input,
+        .form-group textarea {
+          font-size: 14px;
+          padding: var(--space-1);
+        }
+        .modal-actions button {
+          padding: var(--space-1) var(--space-3);
+          font-size: 14px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .contacts__title {
+          font-size: 20px;
+        }
+        .contacts__text {
+          font-size: 14px;
+        }
+        .contacts__map {
+          height: 250px;
+          margin-top: var(--space-1);
+        }
+        #map {
+          height: 250px;
+        }
+
+        dialog {
+          max-width: 300px;
+          padding: var(--space-2);
+        }
+        .modal-header h2 {
+          font-size: 20px;
+        }
+        .form-group label {
+          font-size: 14px;
+        }
+        .form-group input,
+        .form-group textarea {
+          font-size: 13px;
+          padding: var(--space-1);
+        }
+        .modal-actions button {
+          padding: var(--space-1) var(--space-2);
+          font-size: 13px;
         }
       }
     </style>
-    <script src="../contacts.js" defer></script>
-    <script src="../main.js" defer></script>
+    <script src="../scripts/main.js" defer></script>
+    <script src="../scripts/contacts.js" defer></script>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      defer
+    ></script>
+    <script type="module" src="../scripts/map.js"></script>
+    <!-- Bootstrap JS -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
     ></script>
   </head>
-  <body class="d-flex flex-column min-vh-100">
-    <header class="header">
-      <h1 class="header__title">Контакты</h1>
-      <button class="theme-toggle" type="button" aria-pressed="false">
-        <svg
-          fill="currentColor"
-          height="24"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+  <body>
+    <nav class="side-nav">
+      <a href="../index.html" class="side-nav__link" title="Главная">
+        <svg viewBox="0 0 24 24">
           <path
-            clip-rule="evenodd"
-            d="M10.9754 1.27452C11.5522 0.734726 12.4487 0.734725 13.0255 1.27452L15.351 3.45115C15.4395 3.53396 15.5551 3.58182 15.6762 3.58582L18.8597 3.69115C19.6492 3.71727 20.2832 4.35122 20.3093 5.14073L20.4146 8.32428C20.4186 8.44539 20.4665 8.56094 20.5493 8.64941L22.7259 10.975C23.2657 11.5517 23.2657 12.4483 22.7259 13.025L20.5493 15.3506C20.4665 15.4391 20.4186 15.5546 20.4146 15.6757L20.3093 18.8593C20.2832 19.6488 19.6492 20.2827 18.8597 20.3089L15.6762 20.4142C15.5551 20.4182 15.4395 20.466 15.351 20.5489L13.0255 22.7255C12.4487 23.2653 11.5522 23.2653 10.9754 22.7255L8.64985 20.5489C8.56138 20.466 8.44584 20.4182 8.32472 20.4142L5.14117 20.3089C4.35167 20.2827 3.71772 19.6488 3.6916 18.8593L3.58627 15.6757C3.58226 15.5546 3.5344 15.4391 3.45159 15.3506L1.27496 13.025C0.735169 12.4483 0.735168 11.5517 1.27496 10.975L3.45159 8.64941C3.5344 8.56094 3.58226 8.44539 3.58627 8.32428L3.6916 5.14073C3.71772 4.35122 4.35167 3.71727 5.14117 3.69115L8.32472 3.58582C8.44584 3.58182 8.56138 3.53396 8.64985 3.45115L10.9754 1.27452ZM12.3421 2.00462C12.1499 1.82469 11.851 1.82469 11.6588 2.00462L9.33319 4.18125C9.06776 4.42968 8.72114 4.57325 8.35779 4.58528L5.17424 4.69061C4.91107 4.69931 4.69976 4.91063 4.69105 5.1738L4.58572 8.35734C4.5737 8.7207 4.43012 9.06732 4.18169 9.33275L2.00507 11.6583C1.82513 11.8506 1.82513 12.1494 2.00507 12.3417L4.18169 14.6673C4.43012 14.9327 4.5737 15.2793 4.58572 15.6427L4.69105 18.8262C4.69976 19.0894 4.91107 19.3007 5.17424 19.3094L8.35779 19.4147C8.72114 19.4268 9.06776 19.5703 9.33319 19.8188L11.6588 21.9954C11.851 22.1753 12.1499 22.1753 12.3421 21.9954L14.6677 19.8188C14.9331 19.5703 15.2798 19.4268 15.6431 19.4147L18.8267 19.3094C19.0898 19.3007 19.3011 19.0894 19.3098 18.8262L19.4152 15.6427C19.4272 15.2793 19.5708 14.9327 19.8192 14.6673L21.9958 12.3417C22.1758 12.1494 22.1758 11.8506 21.9958 11.6583L19.8192 9.33275C19.5708 9.06732 19.4272 8.7207 19.4152 8.35734L19.3098 5.1738C19.3011 4.91063 19.0898 4.69931 18.8267 4.69061L15.6431 4.58528C15.2798 4.57325 14.9331 4.42968 14.6677 4.18125L12.3421 2.00462Z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-          <path
-            clip-rule="evenodd"
-            d="M10.1991 6.65463C11.8911 7.82768 13 9.78396 13 12C13 14.216 11.8911 16.1723 10.1991 17.3454C10.6159 17.4464 11.0515 17.5 11.5 17.5C14.5376 17.5 17 15.0376 17 12C17 8.96243 14.5376 6.5 11.5 6.5C11.0515 6.5 10.6159 6.55359 10.1991 6.65463ZM8.79144 6.08962C9.6166 5.7109 10.5344 5.5 11.5 5.5C15.0899 5.5 18 8.41015 18 12C18 15.5899 15.0899 18.5 11.5 18.5C10.5344 18.5 9.6166 18.2891 8.79144 17.9104C8.61384 17.8289 8.5 17.6514 8.5 17.456C8.5 17.2605 8.61384 17.083 8.79144 17.0015C10.686 16.132 12 14.2189 12 12C12 9.78106 10.686 7.86799 8.79144 6.99847C8.61384 6.91695 8.5 6.73945 8.5 6.54404C8.5 6.34863 8.61384 6.17113 8.79144 6.08962Z"
-            fill="currentColor"
-            fill-rule="evenodd"
+            d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z"
           />
         </svg>
-      </button>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-secondary mt-3">
-        <div class="container justify-content-center">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav gap-3">
-              <li class="nav-item">
-                <a class="nav-link px-4 py-2" href="../fabstrap/index.html"
-                  >Главная</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link px-4 py-2" href="../fabstrap/news.html"
-                  >Новости</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link px-4 py-2" href="../fabstrap/practices.html"
-                  >Практики</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link px-4 py-2" href="../fabstrap/goods.html"
-                  >Товары</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link active px-4 py-2"
-                  href="../fabstrap/contacts.html"
-                  >Контакты</a
-                >
-              </li>
-            </ul>
+      </a>
+      <a
+        href="../pages/portfolio.html"
+        class="side-nav__link"
+        title="Портфолио"
+      >
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M13 14v6c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1h-6c-.55 0-1 .45-1 1m-9 7h6c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1M3 4v6c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1m12.95-1.6L11.7 6.65c-.39.39-.39 1.02 0 1.41l4.25 4.25c.39.39 1.02.39 1.41 0l4.25-4.25c.39-.39.39-1.02 0-1.41L17.37 2.4c-.39-.39-1.03-.39-1.42 0z"
+          />
+        </svg>
+      </a>
+      <a href="../pages/skills.html" class="side-nav__link" title="Навыки">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12.09 2.91C10.08.9 7.07.49 4.65 1.67L8.28 5.3c.39.39.39 1.02 0 1.41L6.69 8.3c-.39.4-1.02.4-1.41 0L1.65 4.67C.48 7.1.89 10.09 2.9 12.1c1.86 1.86 4.58 2.35 6.89 1.48l7.96 7.96c1.03 1.03 2.69 1.03 3.71 0 1.03-1.03 1.03-2.69 0-3.71L13.54 9.9c.92-2.34.44-5.1-1.45-6.99z"
+          />
+        </svg>
+      </a>
+      <a
+        href="../pages/contacts.html"
+        class="side-nav__link active"
+        title="Контакты"
+      >
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m-.4 4.25-6.54 4.09c-.65.41-1.47.41-2.12 0L4.4 8.25c-.25-.16-.4-.43-.4-.72 0-.67.73-1.07 1.3-.72L12 11l6.7-4.19c.57-.35 1.3.05 1.3.72 0 .29-.15.56-.4.72z"
+          />
+        </svg>
+      </a>
+    </nav>
+
+    <main class="portfolio-content container">
+      <div class="contacts__container row">
+        <div class="contacts__info col-md-6">
+          <div class="contacts__title-section">
+            <h1 class="portfolio-header__title">Контакты</h1>
+          </div>
+          <div class="contacts__details">
+            <h2 class="contacts__title">Свяжись со мной 💬</h2>
+            <p class="contacts__text">📧 <strong>Email:</strong> halfevenw@gmail.com</p>
+            <p class="contacts__text">📍 <strong>Адрес:</strong> г. Москва</p>
+            <button class="project-detail__card-link" id="openDialog">Связаться</button>
           </div>
         </div>
-      </nav>
-    </header>
-    <main class="main contacts container flex-fill">
-      <h2 class="contacts__title text-center mb-5">Контактная информация</h2>
-      <section class="contacts__block mb-4">
-        <h3 class="contacts__block-title">Электронная почта</h3>
-        <p><strong>halfevenw@gmail.com</strong></p>
-      </section>
-      <section class="contacts__block mb-4">
-        <h3 class="contacts__block-title">Адрес</h3>
-        <p>г. Москва, ул. Пушкина, д. Котолушкина</p>
-      </section>
-      <div class="text-center">
-        <button
-          class="contacts__button"
-          data-bs-toggle="modal"
-          data-bs-target="#contactModal"
-        >
-          Связаться с нами
-        </button>
+        <div class="contacts__map col-md-6" id="map"></div>
       </div>
     </main>
-    <footer class="footer mt-auto">&copy; 2025 Все права защищены</footer>
-    <div
-      class="modal fade"
-      id="contactModal"
-      tabindex="-1"
-      aria-labelledby="dialogTitle"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h2 class="modal-title" id="dialogTitle">Форма обратной связи</h2>
+
+    <dialog id="contactModal" aria-labelledby="dialogTitle">
+      <div class="modal-header">
+        <h2 id="dialogTitle">Форма обратной связи</h2>
+      </div>
+      <div class="modal-content">
+        <form id="contactForm" method="dialog" novalidate>
+          <div class="form-group">
+            <label for="name">Имя *</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              minlength="2"
+              placeholder="Введите ваше имя"
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Почта *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="example@mail.ru"
+            />
+          </div>
+          <div class="form-group">
+            <label for="message">Сообщение *</label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              maxlength="500"
+              placeholder="Ваше сообщение..."
+            ></textarea>
+          </div>
+          <div class="modal-actions d-flex justify-content-end">
             <button
               type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+              id="closeDialog"
+              class="project-detail__card-link me-2"
+            >
+              Отмена
+            </button>
+            <button type="submit" class="project-detail__card-link">
+              Отправить
+            </button>
           </div>
-          <div class="modal-body p-4">
-            <form id="contactForm" novalidate>
-              <div class="form-group mb-3">
-                <label for="name" class="form-label"
-                  >Имя <span class="required">*</span></label
-                >
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  class="form-control"
-                  required
-                  minlength="2"
-                  autocomplete="given-name"
-                  placeholder="Введите ваше имя"
-                />
-                <small class="form-text text-muted"
-                  >Введите не менее 2 символов</small
-                >
-              </div>
-              <div class="form-group mb-3">
-                <label for="phone" class="form-label"
-                  >Телефон <span class="required">*</span></label
-                >
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  class="form-control"
-                  required
-                  pattern="^\+7\d{10}$"
-                  autocomplete="tel"
-                  placeholder="+79991234567"
-                />
-                <small class="form-text text-muted"
-                  >Введите номер слитно, например +79991234567</small
-                >
-              </div>
-              <div class="form-group mb-3">
-                <label for="email" class="form-label"
-                  >Электронная почта <span class="required">*</span></label
-                >
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  class="form-control"
-                  required
-                  autocomplete="email"
-                  placeholder="example@mail.ru"
-                />
-                <small class="form-text text-muted"
-                  >Пример: example@mail.ru</small
-                >
-              </div>
-              <div class="form-group mb-3">
-                <label for="category" class="form-label"
-                  >Категория обращения <span class="required">*</span></label
-                >
-                <select
-                  id="category"
-                  name="category"
-                  class="form-select"
-                  required
-                >
-                  <option value="">Выберите категорию</option>
-                  <option value="technical">Техническая поддержка</option>
-                  <option value="commercial">Коммерческое предложение</option>
-                  <option value="cooperation">Сотрудничество</option>
-                  <option value="complaint">Жалоба</option>
-                  <option value="suggestion">Предложение</option>
-                  <option value="other">Другое</option>
-                </select>
-                <small class="form-text text-muted"
-                  >Укажите причину обращения</small
-                >
-              </div>
-              <div class="form-group mb-3">
-                <label for="message" class="form-label"
-                  >Текст обращения <span class="required">*</span></label
-                >
-                <textarea
-                  id="message"
-                  name="message"
-                  class="form-control"
-                  required
-                  maxlength="500"
-                  placeholder="Опишите вашу проблему или вопрос..."
-                ></textarea>
-                <small class="form-text text-muted"
-                  >Опишите ваш запрос (до 500 символов)</small
-                >
-              </div>
-              <div class="d-flex justify-content-end gap-2">
-                <button
-                  type="button"
-                  id="closeDialog"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Отмена
-                </button>
-                <button type="submit" class="btn btn-primary">Отправить</button>
-              </div>
-            </form>
-          </div>
-        </div>
+        </form>
       </div>
-    </div>
+    </dialog>
+
+    <footer class="footer">© 2025 Илья Константинов | Сделано с ❤️</footer>
+
+    <button class="theme-toggle" id="theme-toggle">
+      <img
+        src="../images/theme-switch.svg"
+        alt="Сменить тему"
+        class="theme-toggle__icon"
+      />
+    </button>
   </body>
 </html>
