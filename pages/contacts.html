@@ -406,7 +406,7 @@
       }
 
       .modal-actions .btn {
-        border: none; /* Remove Bootstrap border */
+        border: none;
       }
 
       .d-flex.me-2 {
@@ -414,129 +414,6 @@
       }
       .leaflet-control-attribution {
         display: none;
-      }
-
-      /* Медиа-запросы из original styles.css для адаптивности */
-      @media (max-width: 1024px) {
-        .contacts__container {
-          grid-template-columns: 1fr;
-          min-height: auto;
-        }
-        .contacts__info {
-          justify-content: center;
-          align-items: center;
-          text-align: center;
-        }
-        .contacts__details {
-          align-items: center;
-        }
-        .contacts__map {
-          height: 400px;
-        }
-        #map {
-          height: 400px;
-        }
-
-        dialog {
-          max-width: 400px;
-          padding: var(--space-3);
-        }
-      }
-
-      @media (max-width: 768px) {
-        body {
-          padding-bottom: 60px;
-        }
-        .contacts__title {
-          font-size: 22px;
-        }
-        .contacts__text {
-          font-size: 16px;
-        }
-        .contacts__map {
-          height: 300px;
-          margin-top: var(--space-2);
-        }
-        #map {
-          height: 300px;
-        }
-        .side-nav {
-          position: fixed;
-          top: auto;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 60px;
-          flex-direction: row;
-          justify-content: space-around;
-          align-items: center;
-          gap: 0;
-          box-shadow: var(--shadow-2);
-          z-index: 1000;
-        }
-
-        .theme-toggle {
-          bottom: 70px;
-          right: var(--space-2);
-          width: 45px;
-          height: 45px;
-        }
-
-        dialog {
-          max-width: 350px;
-          padding: var(--space-3);
-        }
-        .modal-header h2 {
-          font-size: 22px;
-        }
-        .form-group label {
-          font-size: 15px;
-        }
-        .form-group input,
-        .form-group textarea {
-          font-size: 14px;
-          padding: var(--space-1);
-        }
-        .modal-actions button {
-          padding: var(--space-1) var(--space-3);
-          font-size: 14px;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .contacts__title {
-          font-size: 20px;
-        }
-        .contacts__text {
-          font-size: 14px;
-        }
-        .contacts__map {
-          height: 250px;
-          margin-top: var(--space-1);
-        }
-        #map {
-          height: 250px;
-        }
-
-        dialog {
-          max-width: 300px;
-          padding: var(--space-2);
-        }
-        .modal-header h2 {
-          font-size: 20px;
-        }
-        .form-group label {
-          font-size: 14px;
-        }
-        .form-group input,
-        .form-group textarea {
-          font-size: 13px;
-          padding: var(--space-1);
-        }
-        .modal-actions button {
-          padding: var(--space-1) var(--space-2);
-          font-size: 13px;
-        }
       }
     </style>
     <script src="../scripts/main.js" defer></script>
@@ -554,7 +431,7 @@
     ></script>
   </head>
   <body>
-    <nav class="side-nav">
+    <nav class="side-nav d-none d-md-flex flex-column">
       <a href="../index.html" class="side-nav__link" title="Главная">
         <svg viewBox="0 0 24 24">
           <path
@@ -569,7 +446,7 @@
       >
         <svg viewBox="0 0 24 24">
           <path
-            d="M13 14v6c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1h-6c-.55 0-1 .45-1 1m-9 7h6c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1M3 4v6c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1m12.95-1.6L11.7 6.65c-.39.39-.39 1.02 0 1.41l4.25 4.25c.39.39 1.02.39 1.41 0l4.25-4.25c.39-.39.39-1.02 0-1.41L17.37 2.4c-.39-.39-1.03-.39-1.42 0z"
+            d="M13 14v6c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1h-6c-.55 0-1 .45-1 1m-9 7h6c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1M3 4v6c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1m12.95-1.6L11.7 6.64c-.39.39-.39 1.02 0 1.41l4.25 4.25c.39.39 1.02.39 1.41 0l4.25-4.25c.39-.39.39-1.02 0-1.41L17.37 2.4c-.39-.39-1.03-.39-1.42 0z"
           />
         </svg>
       </a>
@@ -593,24 +470,87 @@
       </a>
     </nav>
 
-    <main class="portfolio-content container">
-      <div class="contacts__container row">
-        <div class="contacts__info col-md-6">
+    <nav
+      class="side-nav d-flex d-md-none flex-row justify-content-around align-items-center"
+      style="
+        width: 100%;
+        height: 60px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        box-shadow: var(--shadow-2);
+        z-index: 1000;
+        background: var(--color-bg);
+      "
+    >
+      <a href="../index.html" class="side-nav__link" title="Главная">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z"
+          />
+        </svg>
+      </a>
+      <a
+        href="../pages/portfolio.html"
+        class="side-nav__link"
+        title="Портфолио"
+      >
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M13 14v6c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1h-6c-.55 0-1 .45-1 1m-9 7h6c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1M3 4v6c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1m12.95-1.6L11.7 6.64c-.39.39-.39 1.02 0 1.41l4.25 4.25c.39.39 1.02.39 1.41 0l4.25-4.25c.39-.39.39-1.02 0-1.41L17.37 2.4c-.39-.39-1.03-.39-1.42 0z"
+          />
+        </svg>
+      </a>
+      <a href="../pages/skills.html" class="side-nav__link" title="Навыки">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12.09 2.91C10.08.9 7.07.49 4.65 1.67L8.28 5.3c.39.39.39 1.02 0 1.41L6.69 8.3c-.39.4-1.02.4-1.41 0L1.65 4.67C.48 7.1.89 10.09 2.9 12.1c1.86 1.86 4.58 2.35 6.89 1.48l7.96 7.96c1.03 1.03 2.69 1.03 3.71 0 1.03-1.03 1.03-2.69 0-3.71L13.54 9.9c.92-2.34.44-5.1-1.45-6.99z"
+          />
+        </svg>
+      </a>
+      <a
+        href="../pages/contacts.html"
+        class="side-nav__link active"
+        title="Контакты"
+      >
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m-.4 4.25-6.54 4.09c-.65.41-1.47.41-2.12 0L4.4 8.25c-.25-.16-.4-.43-.4-.72 0-.67.73-1.07 1.3-.72L12 11l6.7-4.19c.57-.35 1.3.05 1.3.72 0 .29-.15.56-.4.72z"
+          />
+        </svg>
+      </a>
+    </nav>
+
+    <main class="container my-5 flex-grow-1">
+      <div class="row align-items-stretch g-4">
+        <div
+          class="col-12 col-md-6 d-flex flex-column justify-content-center text-center text-md-start"
+        >
           <div class="contacts__title-section">
-            <h1 class="portfolio-header__title">Контакты</h1>
+            <h1 class="portfolio-header__title mb-4">Контакты</h1>
           </div>
-          <div class="contacts__details">
-            <h2 class="contacts__title">Свяжись со мной 💬</h2>
-            <p class="contacts__text">
-              📧 <strong>Email:</strong> halfevenw@gmail.com
-            </p>
-            <p class="contacts__text">📍 <strong>Адрес:</strong> г. Москва</p>
-            <button class="project-detail__card-link" id="openDialog">
-              Связаться
-            </button>
-          </div>
+          <h2 class="contacts__title mb-3">Свяжись со мной 💬</h2>
+          <p class="contacts__text mb-2">
+            📧 <strong>Email:</strong> halfevenw@gmail.com
+          </p>
+          <p class="contacts__text mb-4">
+            📍 <strong>Адрес:</strong> г. Москва
+          </p>
+          <button
+            class="project-detail__card-link mx-auto mx-md-0"
+            id="openDialog"
+          >
+            Связаться
+          </button>
         </div>
-        <div class="contacts__map col-md-6" id="map"></div>
+
+        <div class="col-12 col-md-6">
+          <div
+            id="map"
+            class="w-100 h-100 rounded shadow"
+            style="min-height: 400px"
+          ></div>
+        </div>
       </div>
     </main>
 
