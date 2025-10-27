@@ -10,7 +10,7 @@
       rel="stylesheet"
     />
     <style>
-      /* Все релевантные стили + медиа-запросы */
+      /* Остальные стили остаются без изменений */
       :root {
         --color-bg: #f4f6ff;
         --color-bg-light: #ffffff;
@@ -337,19 +337,12 @@
         margin-bottom: var(--space-3);
       }
 
-      .projects__grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* Жёстко 3 колонки для ПК */
-        gap: var(--space-4);
-      }
-
       .project-card__container {
         background: var(--color-bg);
-        padding: var(--space-2);
+        padding: var(--space-4);
         border-radius: var(--radius-3);
         box-shadow: var(--shadow-2);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        min-width: 0; /* Для корректного переноса текста */
       }
 
       .project-card__container:hover {
@@ -359,10 +352,11 @@
 
       .project-card__label {
         color: var(--color-muted);
-        overflow-wrap: break-word; /* Перенос длинных слов */
+        overflow-wrap: break-word;
         font-size: 16px;
         line-height: 1.4;
       }
+
       .footer {
         text-align: center;
         padding: var(--space-4);
@@ -470,88 +464,37 @@
         padding: 0;
       }
 
-      .hero__btn {
+      .btn.hero__btn {
         padding: var(--space-2) var(--space-5);
         background: var(--color-gradient-skill);
-        box-shadow: none; /* Add if needed */
+        box-shadow: var(--shadow-2);
         border: none;
       }
 
-      /* Медиа-запросы */
-      @media (max-width: 1024px) {
-        .hero {
-          padding: var(--space-6) var(--space-2);
-        }
+      /* Медиа-запросы для шрифтов и отступов (оставлены для согласованности) */
+      @media (max-width: 767.98px) {
         .hero__title {
           font-size: 32px;
+          margin-bottom: var(--space-2);
         }
+
         .hero__subtitle {
           font-size: 16px;
+          margin-bottom: var(--space-3);
         }
+
         .hero__btn {
+          font-size: 14px;
           padding: var(--space-2) var(--space-4);
-          font-size: 15px;
-        }
-
-        .side-nav {
-          width: 60px;
-          gap: 20px;
-        }
-
-        .content {
-          margin: var(--space-4) auto;
-          padding: 0 var(--space-2);
-        }
-
-        .skills__item {
-          padding: var(--space-2) var(--space-3);
-        }
-
-        .projects__grid {
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        }
-        .project-card__label {
-          font-size: 15px;
-        }
-      }
-
-      @media (max-width: 768px) {
-        body {
-          padding-bottom: 60px;
         }
 
         .hero {
           padding: var(--space-5) var(--space-2);
         }
-        .hero__title {
-          font-size: 28px;
-        }
-        .hero__subtitle {
-          font-size: 16px;
-        }
-        .hero__btn {
-          padding: var(--space-2) var(--space-3);
-          font-size: 14px;
-        }
-
-        .side-nav {
-          position: fixed;
-          top: auto;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 60px;
-          flex-direction: row;
-          justify-content: space-around;
-          align-items: center;
-          gap: 0;
-          box-shadow: var(--shadow-2);
-          z-index: 1000;
-        }
 
         .content {
-          margin: var(--space-3) auto;
           padding: 0 var(--space-2);
+          margin: var(--space-4) auto;
         }
 
         .about,
@@ -559,79 +502,91 @@
         .projects {
           margin-bottom: var(--space-4);
         }
-        .about {
-          padding: var(--space-4);
+
+        .about__title,
+        .skills__title,
+        .projects__title {
+          font-size: 24px;
         }
-        .skills__title {
-          font-size: 22px;
+
+        .about__text {
+          font-size: 14px;
+          line-height: 1.6;
         }
+
         .skills__item {
           padding: var(--space-1) var(--space-3);
-          font-size: 15px;
+          font-size: 14px;
         }
-        .projects__title {
-          font-size: 22px;
-        }
-        .projects__grid {
-          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-          gap: var(--space-3);
-        }
+
         .project-card__label {
           font-size: 14px;
         }
       }
 
-      @media (max-width: 480px) {
+      @media (max-width: 575.98px) {
+        .hero__title {
+          font-size: 28px;
+          margin-bottom: var(--space-1);
+        }
+
+        .hero__subtitle {
+          font-size: 14px;
+          margin-bottom: var(--space-2);
+        }
+
+        .hero__btn {
+          font-size: 12px;
+          padding: var(--space-1) var(--space-3);
+        }
+
         .hero {
           padding: var(--space-4) var(--space-1);
         }
-        .hero__title {
-          font-size: 24px;
-        }
-        .hero__subtitle {
-          font-size: 14px;
-        }
-        .hero__btn {
-          padding: var(--space-1) var(--space-3);
-          font-size: 14px;
-        }
 
         .content {
-          margin: var(--space-3) auto;
           padding: 0 var(--space-1);
+          margin: var(--space-3) auto;
         }
 
-        .about {
-          padding: var(--space-3);
-        }
-        .about__title {
-          font-size: 20px;
-        }
-        .about__text {
-          font-size: 14px;
+        .about,
+        .skills,
+        .projects {
+          margin-bottom: var(--space-3);
         }
 
-        .skills__list {
-          flex-direction: column;
-          gap: var(--space-1);
-        }
-        .skills__title {
-          font-size: 20px;
-        }
-        .skills__item {
-          padding: var(--space-1) var(--space-2);
-          font-size: 14px;
-        }
-
+        .about__title,
+        .skills__title,
         .projects__title {
           font-size: 20px;
         }
-        .projects__grid {
-          grid-template-columns: 1fr; /* Одна колонка на мобильных */
-          gap: var(--space-3);
+
+        .about__text {
+          font-size: 12px;
+          line-height: 1.5;
         }
+
+        .skills__item {
+          padding: var(--space-1) var(--space-2);
+          font-size: 12px;
+        }
+
         .project-card__label {
-          font-size: 14px;
+          font-size: 12px;
+        }
+      }
+
+      /* Мобильная навигация */
+      @media (max-width: 767.98px) {
+        .side-nav {
+          width: 100%;
+          height: 60px;
+          flex-direction: row;
+          justify-content: space-around;
+          align-items: center;
+          bottom: 0;
+          top: auto;
+          box-shadow: var(--shadow-2);
         }
       }
     </style>
@@ -644,8 +599,73 @@
     ></script>
   </head>
   <body>
+    <div class="loader">
+      <svg class="loader__logo" viewBox="0 0 100 100">
+        <circle
+          cx="50"
+          cy="50"
+          r="45"
+          stroke="#64a6fc"
+          stroke-width="5"
+          fill="none"
+        />
+        <text
+          x="50%"
+          y="55%"
+          text-anchor="middle"
+          fill="#64a6fc"
+          font-size="20px"
+          font-family="sans-serif"
+        >
+          IK
+        </text>
+      </svg>
+    </div>
+
     <header class="hero">
-      <nav class="side-nav">
+      <nav class="side-nav d-none d-md-flex flex-column">
+        <a href="index.html" class="side-nav__link active" title="Главная">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z"
+            />
+          </svg>
+        </a>
+        <a href="pages/portfolio.html" class="side-nav__link" title="Портфолио">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M13 14v6c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1h-6c-.55 0-1 .45-1 1m-9 7h6c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1M3 4v6c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1m12.95-1.6L11.7 6.64c-.39.39-.39 1.02 0 1.41l4.25 4.25c.39.39 1.02.39 1.41 0l4.25-4.25c.39-.39.39-1.02 0-1.41L17.37 2.4c-.39-.39-1.03-.39-1.42 0z"
+            />
+          </svg>
+        </a>
+        <a href="pages/skills.html" class="side-nav__link" title="Навыки">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12.09 2.91C10.08.9 7.07.49 4.65 1.67L8.28 5.3c.39.39.39 1.02 0 1.41L6.69 8.3c-.39.4-1.02.4-1.41 0L1.65 4.67C.48 7.1.89 10.09 2.9 12.1c1.86 1.86 4.58 2.35 6.89 1.48l7.96 7.96c1.03 1.03 2.69 1.03 3.71 0 1.03-1.03 1.03-2.69 0-3.71L13.54 9.9c.92-2.34.44-5.1-1.45-6.99z"
+            />
+          </svg>
+        </a>
+        <a href="pages/contacts.html" class="side-nav__link" title="Контакты">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m-.4 4.25-6.54 4.09c-.65.41-1.47.41-2.12 0L4.4 8.25c-.25-.16-.4-.43-.4-.72 0-.67.73-1.07 1.3-.72L12 11l6.7-4.19c.57-.35 1.3.05 1.3.72 0 .29-.15.56-.4.72z"
+            />
+          </svg>
+        </a>
+      </nav>
+      <nav
+        class="side-nav d-flex d-md-none flex-row justify-content-around align-items-center"
+        style="
+          width: 100%;
+          height: 60px;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          box-shadow: var(--shadow-2);
+          z-index: 1000;
+          background: var(--color-bg);
+        "
+      >
         <a href="index.html" class="side-nav__link active" title="Главная">
           <svg viewBox="0 0 24 24">
             <path
@@ -680,13 +700,13 @@
         Frontend-разработчик, любитель IT и творчества
       </p>
       <a href="pages/portfolio.html">
-        <button class="hero__btn">Смотреть портфолио</button>
+        <button class="hero__btn btn">Смотреть портфолио</button>
       </a>
     </header>
 
     <main class="content container">
-      <section class="about row justify-content-center">
-        <div class="col-md-8">
+      <section class="about row g-4 justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
           <h2 class="about__title">Обо мне</h2>
           <p class="about__text">
             Студент РТУ МИРЭА, интересуюсь веб-разработкой, дизайном и
@@ -696,30 +716,42 @@
         </div>
       </section>
 
-      <section class="skills row justify-content-center">
-        <div class="col-md-8">
+      <section class="skills row g-4 justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
           <h2 class="skills__title">Навыки</h2>
           <div class="skills__list d-flex flex-wrap justify-content-center">
-            <span class="skills__item">HTML</span>
-            <span class="skills__item">CSS</span>
-            <span class="skills__item">JavaScript</span>
-            <span class="skills__item">React</span>
+            <span class="skills__item badge">HTML</span>
+            <span class="skills__item badge">CSS</span>
+            <span class="skills__item badge">JavaScript</span>
+            <span class="skills__item badge">React</span>
           </div>
         </div>
       </section>
 
-      <section class="projects row justify-content-center">
-        <div class="col-md-8">
+      <section class="projects row g-4 justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
           <h2 class="projects__title">Проекты</h2>
-          <div class="projects__grid">
-            <div class="project-card__container">
-              <p class="project-card__label">Портфолио</p>
+          <div class="row g-4">
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="project-card__container card">
+                <div class="card-body">
+                  <p class="project-card__label">Портфолио</p>
+                </div>
+              </div>
             </div>
-            <div class="project-card__container">
-              <p class="project-card__label">Калькулятор на JS</p>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="project-card__container card">
+                <div class="card-body">
+                  <p class="project-card__label">Калькулятор на JS</p>
+                </div>
+              </div>
             </div>
-            <div class="project-card__container">
-              <p class="project-card__label">Игровой проект "Sniffer"</p>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="project-card__container card">
+                <div class="card-body">
+                  <p class="project-card__label">Игровой проект "Sniffer"</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -735,27 +767,5 @@
         class="theme-toggle__icon"
       />
     </button>
-    <div class="loader">
-      <svg class="loader__logo" viewBox="0 0 100 100">
-        <circle
-          cx="50"
-          cy="50"
-          r="45"
-          stroke="#64a6fc"
-          stroke-width="5"
-          fill="none"
-        />
-        <text
-          x="50%"
-          y="55%"
-          text-anchor="middle"
-          fill="#64a6fc"
-          font-size="20px"
-          font-family="sans-serif"
-        >
-          IK
-        </text>
-      </svg>
-    </div>
   </body>
 </html>
